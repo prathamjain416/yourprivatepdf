@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use Next.js built-in SWC compiler for faster builds
-  swcMinify: true,
-
   // Enable TypeScript strict mode for safer code
   typescript: {
     tsconfigPath: './tsconfig.json',
@@ -42,11 +39,6 @@ const nextConfig = {
 
   // Configure trailing slashes
   trailingSlash: false,
-
-  // Enable incremental static generation
-  experimental: {
-    isrMemoryCacheSize: 52 * 1024 * 1024, // 52MB cache for ISR
-  },
 }
 
 export default nextConfig
