@@ -116,7 +116,11 @@ export function CompressPDF() {
 
   const downloadPDF = () => {
     if (!result) return
-    const blob = new Blob([new Uint8Array(result.bytes)], { type: "application/pdf" })
+    // Convert to plain ArrayBuffer to satisfy Blob type requirements
+    const buffer = new ArrayBuffer(result.bytes.length)
+    const view = new Uint8Array(buffer)
+    view.set(result.bytes)
+    const blob = new Blob([buffer], { type: "application/pdf" })
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
