@@ -4,9 +4,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "NEXT_PUBLIC_APP_NAME": {
-      "value": "Your Private PDF"
-    }
+    "NEXT_PUBLIC_APP_NAME": "Your Private PDF"
   },
   "headers": [
     {
