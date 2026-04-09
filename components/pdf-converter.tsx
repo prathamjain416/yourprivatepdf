@@ -11,6 +11,12 @@ import { PDFMerge } from "@/components/converters/pdf-merge"
 import { ImagesToPDF } from "@/components/converters/images-to-pdf"
 import { CompressPDF } from "@/components/converters/compress-pdf"
 import { OCRScan } from "@/components/converters/ocr-scan"
+import { SplitPDF } from "@/components/converters/split-pdf"
+import { RotatePDF } from "@/components/converters/rotate-pdf"
+import { PDFWatermark } from "@/components/converters/pdf-watermark"
+import { ExtractImages } from "@/components/converters/extract-images"
+import { RemovePages } from "@/components/converters/remove-pages"
+import { TextToPDF } from "@/components/converters/text-to-pdf"
 import { Button } from "@/components/ui/button"
 import { FAQSection } from "@/components/faq-section"
 import Link from "next/link"
@@ -35,6 +41,18 @@ export default function PDFConverter() {
         return <CompressPDF />
       case "ocr-scan":
         return <OCRScan />
+      case "split-pdf":
+        return <SplitPDF />
+      case "rotate-pdf":
+        return <RotatePDF />
+      case "pdf-watermark":
+        return <PDFWatermark />
+      case "extract-images":
+        return <ExtractImages />
+      case "remove-pages":
+        return <RemovePages />
+      case "text-to-pdf":
+        return <TextToPDF />
       default:
         return (
           <div className="text-center py-12 space-y-4">

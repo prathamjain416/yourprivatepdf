@@ -29,10 +29,12 @@ export function FileUpload({
   const inputRef = React.useRef<HTMLInputElement>(null)
 
   const handleFiles = (newFiles: FileList | null) => {
-    if (!newFiles) return
+    if (!newFiles || newFiles.length === 0) return
 
-    const fileArray = Array.from(newFiles)
-    const validFiles = multiple ? [...files, ...fileArray].slice(0, maxFiles) : [fileArray[0]]
+    const fileArray = Array.from(newFiles).filter(file => file && file.name)
+    if (fileArray.length === 0) return
+
+    const validFiles = multiple ? [...files, ...fileArray].slice(0, maxFiles) : fileArray.slice(0, 1)
 
     setFiles(validFiles)
     onFilesChange(validFiles)
@@ -88,32 +90,35 @@ export function FileUpload({
 
       {files.length > 0 && (
         <div className="space-y-2">
-          {files.map((file, i) => (
-            <div
-              key={`${file.name}-${i}`}
-              className="flex items-center justify-between p-3 bg-muted/50 border rounded-lg group animate-in fade-in slide-in-from-top-1"
-            >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded bg-background border">
-                  <FileIcon className="w-4 h-4 text-primary" />
-                </div>
-                <div className="grid gap-0.5">
-                  <p className="text-sm font-medium truncate max-w-[200px]">{file.name}</p>
-                  <p className="text-[10px] text-muted-foreground">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  removeFile(i)
-                }}
+          {files.map((file, i) => {
+            if (!file || !file.name) return null
+            return (
+              <div
+                key={`${file.name}-${i}`}
+                className="flex items-center justify-between p-3 bg-muted/50 border rounded-lg group animate-in fade-in slide-in-from-top-1"
               >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-          ))}
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded bg-background border">
+                    <FileIcon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="grid gap-0.5">
+                    <p className="text-sm font-medium truncate max-w-[200px]">{file.name}</p>
+                    <p className="text-[10px] text-muted-foreground">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    removeFile(i)
+                  }}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            )
+          })}
         </div>
       )}
     </div>
