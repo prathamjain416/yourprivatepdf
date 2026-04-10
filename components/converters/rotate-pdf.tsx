@@ -107,10 +107,8 @@ export function RotatePDF() {
         const currentRotation = page.getRotation().angle || 0
         const newRotation = (currentRotation + rotationAngle) % 360
 
-        page.setRotation({
-          type: RotationTypes.Degrees,
-          angle: newRotation,
-        })
+      page.setRotation(degrees(newRotation))
+
         
         setProgress(Math.round(((i + 1) / pagesToRotate.length) * 100))
       }
